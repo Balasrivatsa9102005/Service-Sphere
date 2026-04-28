@@ -3,7 +3,6 @@
 Service Sphere is a full-stack web application that connects customers with trusted local service professionals. Users can search for services like electricians, plumbers, doctors, tutors, and more, based on their location.
 
 ![Service Sphere Banner](https://img.shields.io/badge/Service-Sphere-00d4ff?style=for-the-badge&logo=react&logoColor=white)
-![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 ![Node Version](https://img.shields.io/badge/node-18.x-green?style=flat-square)
 ![MongoDB](https://img.shields.io/badge/MongoDB-✓-green?style=flat-square)
 
@@ -53,47 +52,6 @@ Service Sphere is a full-stack web application that connects customers with trus
 
 ---
 
-## 📁 Project Structure
-Service-Sphere/
-├── backend/
-│ ├── config/
-│ │ └── db.js
-│ ├── middleware/
-│ │ └── auth.js
-│ ├── models/
-│ │ ├── User.js
-│ │ ├── Service.js
-│ │ ├── Professional.js
-│ │ └── Booking.js
-│ ├── routes/
-│ │ ├── auth.js
-│ │ ├── services.js
-│ │ ├── professionals.js
-│ │ └── bookings.js
-│ ├── .env
-│ ├── package.json
-│ ├── server.js
-│ └── seed.js
-│
-├── frontend/
-│ ├── css/
-│ │ └── styles.css
-│ ├── images/
-│ ├── pages/
-│ │ ├── index.html
-│ │ ├── services.html
-│ │ ├── about.html
-│ │ ├── contact.html
-│ │ ├── results.html
-│ │ └── register-business.html
-│ └── js/
-│ └── script.js
-│
-└── README.md
-
-
----
-
 ## 🚀 Installation & Setup
 
 ### Prerequisites
@@ -110,9 +68,11 @@ cd backend
 npm install
 ```
 ### 👥 Team
+- P. Bala Srivatsa	CEO & Founder
+- Sk. Zaafira Yumn	Head of Operations
+- M. Narendra Kumar	Technology Director
 
-P. Bala Srivatsa	CEO & Founder
-Sk. Zaafira Yumn	Head of Operations
-M. Narendra Kumar	Technology Director
+
+
 
 THANK YOU...
