@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Sphere | Find Trusted Local Professionals</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <style>
+        /* Your existing CSS (same as above) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #0a0c10;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: rgba(10, 12, 16, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-icon:hover {
+            transform: scale(1.02);
+        }
+
+        .logo-icon i {
+            font-size: 1.8rem;
+            color: #0a0c10;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo-text span {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #b0b0b0;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00d4ff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #ffffff;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-outline {
+            padding: 0.5rem 1.5rem;
+            border: 1px solid rgba(0, 212, 255, 0.5);
+            background: transparent;
+            color: #00d4ff;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-2px);
+            border-color: #00d4ff;
+        }
+
+        .btn-primary {
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            border: none;
+            color: #0a0c10;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        .city-badge {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(0, 153, 204, 0.1));
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: #00d4ff;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .user-greeting {
+            color: #ffffff;
+            background: rgba(0, 212, 255, 0.1);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Toast Message - TOP CENTER */
+        .toast-message {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: #0a0c10;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            z-index: 100000;
+            font-weight: 600;
+            font-size: 1rem;
+            animation: toastSlideDown 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            min-width: 280px;
+            max-width: 400px;
+            justify-content: center;
+        }
+
+        @keyframes toastSlideDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        .toast-message i {
+            font-size: 1.2rem;
+        }
+
+        /* Floating Sign-in Prompt */
+        .floating-prompt {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            animation: slideInRight 0.5s ease;
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .prompt-card {
+            background: rgba(10, 12, 16, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            padding: 1.2rem 1.5rem;
+            max-width: 320px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .prompt-card:hover {
+            transform: translateY(-5px);
+            border-color: #00d4ff;
+            box-shadow: 0 25px 50px rgba(0, 212, 255, 0.2);
+        }
+
+        .prompt-card i {
+            font-size: 2rem;
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .prompt-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .prompt-card p {
+            font-size: 0.85rem;
+            color: #aaa;
+            margin-bottom: 1rem;
+        }
+
+        .prompt-btn {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            color: #0a0c10;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Slider */
+        .hero {
+            position: relative;
+            height: 85vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(10,12,16,0.9) 0%, rgba(10,12,16,0.6) 100%);
+            z-index: 3;
+        }
+
+        .content {
+            position: relative;
+            z-index: 4;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 0 5%;
+            max-width: 700px;
+        }
+
+        .content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .content span {
+            background: linear-gradient(135deg, #00d4ff 0%, #00a0cc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .content p {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2.2rem;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            border-radius: 50px;
+            color: #0a0c10;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #00d4ff;
+            width: 25px;
+            border-radius: 10px;
+        }
+
+        /* Looking Section */
+        .looking-section {
+            padding: 5rem 5%;
+            text-align: center;
+            background: #0a0c10;
+        }
+
+        .looking-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .looking-search {
+            max-width: 550px;
+            margin: 0 auto;
+            display: flex;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 60px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .looking-search:focus-within {
+            border-color: #00d4ff;
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+        }
+
+        .looking-search input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            background: transparent;
+            color: white;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .looking-search button {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            border: none;
+            padding: 0 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: #0a0c10;
+            transition: all 0.3s ease;
+        }
+
+        /* Categories */
+        .categories {
+            padding: 5rem 5%;
+            text-align: center;
+            background: #0d0f14;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: #888;
+        }
+
+        .category-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 2rem auto 0;
+        }
+
+        .category-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 20px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .category-box:hover {
+            transform: translateY(-8px);
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.08);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            color: #00d4ff;
+        }
+
+        .category-box h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Features */
+        .features {
+            padding: 5rem 5%;
+            background: #0a0c10;
+        }
+
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 2rem auto 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: #00d4ff;
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #00d4ff;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: #999;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 4rem 5%;
+            background: linear-gradient(135deg, #0d0f14 0%, #0a0c10 100%);
+        }
+
+        .cta-section h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            color: #aaa;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #07090d;
+            padding: 3rem 5% 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .footer-section p, .footer-section ul li a {
+            color: #777;
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a:hover {
+            color: #00d4ff;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #00d4ff;
+            color: #0a0c10;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .modal-content {
+            background: #0a0c10;
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 450px;
+            width: 90%;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #fff, #00d4ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .modal-input:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+
+        .modal-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .modal-switch {
+            text-align: center;
+            margin-top: 1rem;
+            color: #888;
+        }
+
+        .modal-switch a {
+            color: #00d4ff;
+            cursor: pointer;
+        }
+
+        /* City Grid */
+        .city-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .city-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .city-btn img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .city-btn:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: #00d4ff;
+            transform: translateY(-3px);
+        }
+
+        .city-btn.selected {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: #00d4ff;
+        }
+
+        .city-note {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 0.8rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-buttons {
+                justify-content: center;
+            }
+            .content h1 {
+                font-size: 2rem;
+            }
+            .city-grid {
+                grid-template-columns: 1fr;
+            }
+            .floating-prompt {
+                bottom: 20px;
+                right: 20px;
+                left: 20px;
+            }
+            .prompt-card {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <a href="index.html" class="logo-container" style="text-decoration: none;">
+        <div class="logo-icon">
+            <i class="fas fa-compass"></i>
+        </div>
+        <div class="logo-text">
+            <h1>Service Sphere</h1>
+            <span>Local Services Finder</span>
+        </div>
+    </a>
+
+    <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <div class="nav-buttons" id="navButtons">
+        <a href="#" class="btn-outline" onclick="openModal(); return false;"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+        <a href="register-business.html" class="btn-primary"><i class="fas fa-plus-circle"></i> List Business</a>
+    </div>
+</header>
+
+<!-- HERO SLIDER -->
+<section class="hero">
+    <div class="slide active" style="background-image:url('../images/electrician.jpg')">
+        <div class="overlay"></div>
+        <div class="content">
+            <h1>Find Skilled <span>Electricians</span></h1>
+            <p>Trusted professionals for all your electrical needs. 24/7 emergency service available.</p>
+            <a href="#" class="btn" id="electricianLink">Explore Electricians →</a>
+        </div>
+    </div>
+    <div class="slide" style="background-image:url('../images/plumber.jpg')">
+        <div class="overlay"></div>
+        <div class="content">
+            <h1>Reliable <span>Plumbers</span></h1>
+            <p>Quick solutions for leaks, installations, and all home plumbing needs.</p>
+            <a href="#" class="btn" id="plumberLink">Explore Plumbers →</a>
+        </div>
+    </div>
+    <div class="slide" style="background-image:url('../images/mechanic.jpg')">
+        <div class="overlay"></div>
+        <div class="content">
+            <h1>Expert <span>Mechanics</span></h1>
+            <p>Keep your vehicles running smoothly with certified professionals.</p>
+            <a href="#" class="btn" id="mechanicLink">Explore Mechanics →</a>
+        </div>
+    </div>
+    <div class="slide" style="background-image:url('../images/doctor.jpg')">
+        <div class="overlay"></div>
+        <div class="content">
+            <h1>Qualified <span>Doctors</span></h1>
+            <p>Connect with trusted healthcare professionals in your area.</p>
+            <a href="#" class="btn" id="doctorLink">Explore Doctors →</a>
+        </div>
+    </div>
+    <div class="slider-dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+</section>
+
+<!-- Floating Sign-in Prompt (only when not logged in) -->
+<div id="floatingPrompt" class="floating-prompt" style="display: none;">
+    <div class="prompt-card">
+        <i class="fas fa-map-marker-alt"></i>
+        <h4>Get Local Results</h4>
+        <p>Sign in to see professionals near you and get personalized recommendations</p>
+        <button class="prompt-btn" onclick="openModal()">Sign In / Create Account</button>
+    </div>
+</div>
+
+<!-- WHO ARE YOU LOOKING FOR? -->
+<section class="looking-section">
+    <h2>Who are you looking for?</h2>
+    <p>Find the perfect professional for your needs</p>
+    <div class="looking-search">
+        <input type="text" id="searchInput" placeholder="Search for electricians, doctors, plumbers...">
+        <button id="searchButton"><i class="fas fa-search"></i> Search</button>
+    </div>
+</section>
+
+<!-- BROWSE ALL CATEGORIES -->
+<section class="categories">
+    <div class="section-header">
+        <h2>Browse All Categories</h2>
+        <p>Explore our complete range of professional services</p>
+    </div>
+    <div class="category-container" id="categoryContainer">
+        <a href="#" class="category-box" data-service="Doctor">
+            <div class="category-icon"><i class="fas fa-stethoscope"></i></div>
+            <h3>Doctors</h3>
+        </a>
+        <a href="#" class="category-box" data-service="Electrician">
+            <div class="category-icon"><i class="fas fa-bolt"></i></div>
+            <h3>Electricians</h3>
+        </a>
+        <a href="#" class="category-box" data-service="Plumber">
+            <div class="category-icon"><i class="fas fa-wrench"></i></div>
+            <h3>Plumbers</h3>
+        </a>
+        <a href="#" class="category-box" data-service="Math Tutor">
+            <div class="category-icon"><i class="fas fa-chalkboard-user"></i></div>
+            <h3>Tutors</h3>
+        </a>
+        <a href="#" class="category-box" data-service="Mechanic">
+            <div class="category-icon"><i class="fas fa-car"></i></div>
+            <h3>Mechanics</h3>
+        </a>
+        <a href="#" class="category-box" data-service="Home Cleaner">
+            <div class="category-icon"><i class="fas fa-broom"></i></div>
+            <h3>Cleaning</h3>
+        </a>
+        <a href="#" class="category-box" data-service="Painter">
+            <div class="category-icon"><i class="fas fa-paintbrush"></i></div>
+            <h3>Painters</h3>
+        </a>
+        <a href="#" class="category-box" data-service="Photographer">
+            <div class="category-icon"><i class="fas fa-camera"></i></div>
+            <h3>Photographers</h3>
+        </a>
+        <a href="#" class="category-box" data-service="Lawyer">
+            <div class="category-icon"><i class="fas fa-gavel"></i></div>
+            <h3>Lawyers</h3>
+        </a>
+        <a href="#" class="category-box" data-service="Hair Stylist">
+            <div class="category-icon"><i class="fas fa-spa"></i></div>
+            <h3>Beauty</h3>
+        </a>
+        <a href="services.html" class="category-box">
+            <div class="category-icon"><i class="fas fa-arrow-right"></i></div>
+            <h3>View All</h3>
+        </a>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+    <div class="section-header">
+        <h2>Why Choose Service Sphere</h2>
+        <p>We make finding local services simple and reliable</p>
+    </div>
+    <div class="features-container">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-search"></i></div>
+            <h3>Easy Search</h3>
+            <p>Quickly find services based on category and location with smart filters.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-star"></i></div>
+            <h3>Trusted Listings</h3>
+            <p>Browse verified service providers with authentic ratings and reviews.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-phone"></i></div>
+            <h3>Instant Contact</h3>
+            <p>Connect directly with professionals in one click — no middlemen.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <h2>Are You a Service Professional?</h2>
+    <p>Join Service Sphere today and get connected with local customers looking for your expertise.</p>
+    <a href="register-business.html" class="btn-primary" style="padding: 1rem 2rem; font-size: 1rem;"><i class="fas fa-plus-circle"></i> List Your Business →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>Service Sphere</h4>
+            <p>Your trusted platform for finding local professionals. Connect with verified service providers in your area.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Popular Categories</h4>
+            <ul>
+                <li><a href="#">Electricians</a></li>
+                <li><a href="#">Plumbers</a></li>
+                <li><a href="#">Doctors</a></li>
+                <li><a href="#">Mechanics</a></li>
+                <li><a href="#">Tutors</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Contact Info</h4>
+            <ul class="contact-info">
+                <li><i class="fas fa-map-marker-alt"></i> Vijayawada, AP, India</li>
+                <li><i class="fas fa-phone"></i> +91 7989242184</li>
+                <li><i class="fas fa-envelope"></i> support@servicesphere.com</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Service Sphere. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </div>
+</footer>
+
+<!-- AUTH MODAL -->
+<div id="authModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle">Sign In</h3>
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+        </div>
+        <div id="loginForm">
+            <input type="email" id="loginEmail" class="modal-input" placeholder="Email Address" required>
+            <input type="password" id="loginPassword" class="modal-input" placeholder="Password" required>
+            <button class="modal-btn" onclick="handleLogin()">Sign In</button>
+            <div class="modal-switch">
+                Don't have an account? <a onclick="showSignup()">Create Account</a>
+            </div>
+        </div>
+        <div id="signupForm" style="display: none;">
+            <input type="text" id="signupName" class="modal-input" placeholder="Full Name" required>
+            <input type="email" id="signupEmail" class="modal-input" placeholder="Email Address" required>
+            <input type="password" id="signupPassword" class="modal-input" placeholder="Password (min 6 characters)" required>
+            <input type="tel" id="signupPhone" class="modal-input" placeholder="Phone Number">
+            <button class="modal-btn" onclick="handleSignup()">Create Account</button>
+            <div class="modal-switch">
+                Already have an account? <a onclick="showLogin()">Sign In</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CITY SELECTION MODAL -->
+<div id="cityModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-map-marker-alt"></i> Select Your City</h3>
+            <button class="modal-close" onclick="closeCityModal()">&times;</button>
+        </div>
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+            <p style="color: #aaa;">Choose your city to see local service providers</p>
+        </div>
+        <div class="city-grid" id="cityGrid">
+            <button class="city-btn" data-city="Vijayawada">
+                <img src="../images/vijayawada.png" alt="Vijayawada">
+                <span>Vijayawada</span>
+                <small style="font-size: 0.7rem; color: #888;">Temple City</small>
+            </button>
+            <button class="city-btn" data-city="Guntur">
+                <img src="../images/guntur.png" alt="Guntur">
+                <span>Guntur</span>
+                <small style="font-size: 0.7rem; color: #888;">Spice Hub</small>
+            </button>
+            <button class="city-btn" data-city="Tenali">
+                <img src="../images/tenali.png" alt="Tenali">
+                <span>Tenali</span>
+                <small style="font-size: 0.7rem; color: #888;">Cultural Hub</small>
+            </button>
+            <button class="city-btn" data-city="Mangalgiri">
+                <img src="../images/mangalagiri.png" alt="Mangalgiri">
+                <span>Mangalgiri</span>
+                <small style="font-size: 0.7rem; color: #888;">Textile City</small>
+            </button>
+            <button class="city-btn" data-city="Amaravati">
+                <img src="../images/amaravati.png" alt="Amaravati">
+                <span>Amaravati</span>
+                <small style="font-size: 0.7rem; color: #888;">Buddhist Heritage</small>
+            </button>
+        </div>
+        <div class="city-note">
+            <p><i class="fas fa-globe"></i> We're expanding to more cities soon! Currently serving these 5 locations.</p>
+        </div>
+        <button class="modal-btn" onclick="confirmCitySelection()">Continue with Selected City →</button>
+    </div>
+</div>
+
+<script>
+    const API_URL = 'http://localhost:5000/api';
+    let authToken = localStorage.getItem('token');
+    let currentUser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+    
+    // Get selected city from URL OR localStorage
+    const urlParams = new URLSearchParams(window.location.search);
+    let selectedCity = urlParams.get('city') || localStorage.getItem('selectedCity') || '';
+
+    function saveCity(city) {
+        localStorage.setItem('selectedCity', city);
+        selectedCity = city;
+    }
+
+    function showToast(message, isError = false) {
+        const existing = document.querySelector('.toast-message');
+        if (existing) existing.remove();
+        const toast = document.createElement('div');
+        toast.className = 'toast-message';
+        toast.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i><span>${message}</span>`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 4000);
+    }
+
+    function updateAllLinksWithCity() {
+        if (!selectedCity) return;
+        
+        const heroLinks = ['electricianLink', 'plumberLink', 'mechanicLink', 'doctorLink'];
+        const services = ['Electrician', 'Plumber', 'Mechanic', 'Doctor'];
+        heroLinks.forEach((id, index) => {
+            const link = document.getElementById(id);
+            if (link) {
+                link.href = `results.html?service=${services[index]}&city=${selectedCity}`;
+            }
+        });
+        
+        const categoryBoxes = document.querySelectorAll('.category-box[data-service]');
+        categoryBoxes.forEach(box => {
+            const service = box.getAttribute('data-service');
+            box.href = `results.html?service=${service}&city=${selectedCity}`;
+        });
+        
+        const searchBtn = document.getElementById('searchButton');
+        if (searchBtn) {
+            const newBtn = searchBtn.cloneNode(true);
+            searchBtn.parentNode.replaceChild(newBtn, searchBtn);
+            newBtn.addEventListener('click', () => {
+                const term = document.getElementById('searchInput')?.value.trim();
+                if (term) {
+                    window.location.href = `results.html?search=${encodeURIComponent(term)}&city=${selectedCity}`;
+                } else {
+                    showToast('Please enter a service to search for', true);
+                }
+            });
+        }
+        
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const term = searchInput.value.trim();
+                    if (term) {
+                        window.location.href = `results.html?search=${encodeURIComponent(term)}&city=${selectedCity}`;
+                    } else {
+                        showToast('Please enter a service to search for', true);
+                    }
+                }
+            });
+        }
+    }
+
+    function updateNavbar() {
+        const navButtons = document.getElementById('navButtons');
+        const floatingPrompt = document.getElementById('floatingPrompt');
+        
+        if (currentUser && authToken) {
+            let cityHtml = '';
+            if (selectedCity) {
+                cityHtml = `<span class="city-badge"><i class="fas fa-map-marker-alt"></i> ${selectedCity}</span>`;
+            }
+            navButtons.innerHTML = `
+                <span class="user-greeting"><i class="fas fa-user-circle"></i> ${currentUser.name.split(' ')[0]}</span>
+                ${cityHtml}
+                <a href="#" class="btn-outline" onclick="changeCity(); return false;"><i class="fas fa-map-marker-alt"></i> Change City</a>
+                <a href="#" class="btn-outline" onclick="logout(); return false;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="register-business.html" class="btn-primary"><i class="fas fa-plus-circle"></i> List Business</a>
+            `;
+            floatingPrompt.style.display = 'none';
+        } else {
+            navButtons.innerHTML = `
+                <a href="#" class="btn-outline" onclick="openModal(); return false;"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+                <a href="register-business.html" class="btn-primary"><i class="fas fa-plus-circle"></i> List Business</a>
+            `;
+            floatingPrompt.style.display = 'block';
+            selectedCity = '';
+        }
+    }
+
+    async function handleLogin() {
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+        if (!email || !password) { showToast('Please fill in all fields', true); return; }
+        try {
+            const response = await fetch(`${API_URL}/auth/login`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            const result = await response.json();
+            console.log('Login response:', result);
+            if (result.success) {
+                authToken = result.token;
+                currentUser = result.user;
+                localStorage.setItem('token', authToken);
+                localStorage.setItem('user', JSON.stringify(currentUser));
+                updateNavbar();
+                closeModal();
+                showToast(`Welcome back ${currentUser.name}!`);
+                setTimeout(() => openCityModal(), 500);
+            } else {
+                showToast(result.message || 'Login failed', true);
+            }
+        } catch (error) { 
+            console.error('Login error:', error);
+            showToast('Login failed: ' + error.message, true); 
+        }
+    }
+
+    async function handleSignup() {
+        const name = document.getElementById('signupName').value;
+        const email = document.getElementById('signupEmail').value;
+        const password = document.getElementById('signupPassword').value;
+        const phone = document.getElementById('signupPhone').value;
+        if (!name || !email || !password) { showToast('Please fill in all fields', true); return; }
+        if (password.length < 6) { showToast('Password must be at least 6 characters', true); return; }
+        try {
+            const response = await fetch(`${API_URL}/auth/register`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password, phone })
+            });
+            const result = await response.json();
+            if (result.success) {
+                authToken = result.token;
+                currentUser = result.user;
+                localStorage.setItem('token', authToken);
+                localStorage.setItem('user', JSON.stringify(currentUser));
+                updateNavbar();
+                closeModal();
+                showToast(`Welcome ${name}! Account created successfully.`);
+                setTimeout(() => openCityModal(), 500);
+            } else {
+                showToast(result.message, true);
+            }
+        } catch (error) { showToast('Signup failed: ' + error.message, true); }
+    }
+
+    function logout() {
+        authToken = null;
+        currentUser = null;
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        localStorage.removeItem('selectedCity');
+        updateNavbar();
+        showToast('Logged out successfully');
+        window.location.href = 'index.html';
+    }
+
+    function changeCity() { openCityModal(); }
+
+    function openCityModal() {
+        const modal = document.getElementById('cityModal');
+        modal.style.display = 'flex';
+        const btns = document.querySelectorAll('.city-btn');
+        btns.forEach(btn => {
+            if (btn.dataset.city === selectedCity) btn.classList.add('selected');
+            else btn.classList.remove('selected');
+        });
+    }
+
+    function closeCityModal() { document.getElementById('cityModal').style.display = 'none'; }
+
+    function selectCity(city) {
+        saveCity(city);
+        window.location.href = `index.html?city=${encodeURIComponent(city)}`;
+    }
+
+    function confirmCitySelection() {
+        const selected = document.querySelector('.city-btn.selected');
+        if (selected) {
+            selectCity(selected.dataset.city);
+            closeCityModal();
+        } else {
+            showToast('Please select a city to continue', true);
+        }
+    }
+
+    function openModal() { document.getElementById('authModal').style.display = 'flex'; }
+    function closeModal() { document.getElementById('authModal').style.display = 'none'; showLogin(); }
+    function showSignup() {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('signupForm').style.display = 'block';
+        document.getElementById('modalTitle').innerText = 'Create Account';
+    }
+    function showLogin() {
+        document.getElementById('signupForm').style.display = 'none';
+        document.getElementById('loginForm').style.display = 'block';
+        document.getElementById('modalTitle').innerText = 'Sign In';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        updateNavbar();
+        if (selectedCity) updateAllLinksWithCity();
+        
+        const cityBtns = document.querySelectorAll('.city-btn');
+        cityBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                cityBtns.forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+        
+        // Hero Slider
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        if (slides.length) {
+            let idx = 0, interval;
+            const show = i => {
+                slides.forEach(s => s.classList.remove('active'));
+                dots.forEach(d => d.classList.remove('active'));
+                slides[i].classList.add('active');
+                dots[i].classList.add('active');
+                idx = i;
+            };
+            const next = () => { let i = idx + 1; if (i >= slides.length) i = 0; show(i); };
+            const start = () => { if (interval) clearInterval(interval); interval = setInterval(next, 4000); };
+            dots.forEach((dot, i) => dot.addEventListener('click', () => { clearInterval(interval); show(i); start(); }));
+            start();
+        }
+        
+        // Check if user is logged in and has no city selected
+        if (currentUser && !selectedCity) {
+            setTimeout(() => openCityModal(), 1000);
+        }
+    });
+</script>
+
+</body>
+</html>

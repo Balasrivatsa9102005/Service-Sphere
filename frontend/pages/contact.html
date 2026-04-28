@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Service Sphere</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #0a0c10;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* ===== NAVBAR (Premium) ===== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: rgba(10, 12, 16, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .logo-icon i {
+            font-size: 1.8rem;
+            color: #0a0c10;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo-text span {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #b0b0b0;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00d4ff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #ffffff;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-outline {
+            padding: 0.5rem 1.5rem;
+            border: 1px solid rgba(0, 212, 255, 0.5);
+            background: transparent;
+            color: #00d4ff;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-2px);
+            border-color: #00d4ff;
+        }
+
+        .btn-primary {
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            border: none;
+            color: #0a0c10;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        .city-badge {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(0, 153, 204, 0.1));
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: #00d4ff;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .user-greeting {
+            color: #ffffff;
+            background: rgba(0, 212, 255, 0.1);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Toast Message */
+        .toast-message {
+            position: fixed;
+            top: 80px;
+            right: 30px;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: #0a0c10;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            z-index: 10000;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: 4rem 5%;
+            background: #0a0c10;
+        }
+
+        .page-header h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: #888;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 3rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 3rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #ffffff 0%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-item i {
+            font-size: 1.5rem;
+            color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-item h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-item p {
+            color: #999;
+            line-height: 1.6;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .contact-form h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1.8rem;
+            color: #ffffff;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-family: "Inter", sans-serif;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #666;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: #0a0c10;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .map-section {
+            padding: 0 5% 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .map-section iframe {
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: #07090d;
+            padding: 3rem 5% 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .footer-section p, .footer-section ul li a {
+            color: #777;
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a:hover {
+            color: #00d4ff;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #00d4ff;
+            color: #0a0c10;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #666;
+            font-size: 0.8rem;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10001;
+        }
+
+        .modal-content {
+            background: #0a0c10;
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 450px;
+            width: 90%;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #fff, #00d4ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .modal-input:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+
+        .modal-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .modal-switch {
+            text-align: center;
+            margin-top: 1rem;
+            color: #888;
+        }
+
+        .modal-switch a {
+            color: #00d4ff;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 1.5rem;
+            }
+            .page-header h2 {
+                font-size: 2rem;
+            }
+            .info-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="logo-container">
+        <div class="logo-icon">
+            <i class="fas fa-compass"></i>
+        </div>
+        <div class="logo-text">
+            <h1>Service Sphere</h1>
+            <span>Local Services Finder</span>
+        </div>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+
+    <div class="nav-buttons" id="navButtons">
+        <a href="#" class="btn-outline" onclick="openModal(); return false;"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+        <a href="register-business.html" class="btn-primary"><i class="fas fa-plus-circle"></i> List Business</a>
+    </div>
+</header>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+    <h2>Contact Us</h2>
+    <p>We're here to help — get in touch with our team</p>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="contact-section">
+    <div class="contact-container">
+        <div class="contact-info">
+            <h3>Get in Touch</h3>
+            
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <h4>Visit Us</h4>
+                    <p>Stalin Central, MG Road<br>Vijayawada, AP, India</p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                    <h4>Call Us</h4>
+                    <p>+91 7989242184</p>
+                    <p>Mon-Fri: 9:00 AM - 6:00 PM</p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <h4>Email Us</h4>
+                    <p>balasrivatsapanigrahi@gmail.com</p>
+                    <p>balasrivatsapanigrahi1@gmail.com</p>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <a href="https://github.com/Balasrivatsa9102005"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/bala-srivatsa-panigrahi-7856a9325"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/balu__9105/"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <h3>Send a Message</h3>
+            <form id="contactForm">
+                <div class="form-group">
+                    <input type="text" id="contactName" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="contactEmail" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <select id="contactCategory">
+                        <option value="">Select Service Category</option>
+                        <option value="Home Services">Home Services</option>
+                        <option value="Health & Wellness">Health & Wellness</option>
+                        <option value="Education & Tutoring">Education & Tutoring</option>
+                        <option value="Automotive">Automotive</option>
+                        <option value="Professional Services">Professional Services</option>
+                        <option value="Beauty & Personal Care">Beauty & Personal Care</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea id="contactMessage" rows="5" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- MAP SECTION -->
+<section class="map-section">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3826.0000000000005!2d80.6167!3d16.5062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a35e0f7b5d7b8c1%3A0x8e8a8f8e8a8f8e8a!2sVijayawada%2C%20Andhra%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000" width="100%" height="400" style="border:0; border-radius:20px;" allowfullscreen="" loading="lazy"></iframe>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>Service Sphere</h4>
+            <p>Your trusted platform for finding local professionals. Connect with verified service providers in your area.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Popular Categories</h4>
+            <ul>
+                <li><a href="#">Electricians</a></li>
+                <li><a href="#">Plumbers</a></li>
+                <li><a href="#">Doctors</a></li>
+                <li><a href="#">Mechanics</a></li>
+                <li><a href="#">Tutors</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Contact Info</h4>
+            <ul class="contact-info">
+                <li><i class="fas fa-map-marker-alt"></i> Vijayawada, AP, India</li>
+                <li><i class="fas fa-phone"></i> +91 7989242184</li>
+                <li><i class="fas fa-envelope"></i> balasrivatsapanigrahi@gmail.com</li>
+                <li><i class="fas fa-envelope"></i> balasrivatsapanigrahi1@gmail.com</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 Service Sphere. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </div>
+</footer>
+
+<!-- AUTH MODAL -->
+<div id="authModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle">Sign In</h3>
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+        </div>
+        <div id="loginForm">
+            <input type="email" id="loginEmail" class="modal-input" placeholder="Email Address" required>
+            <input type="password" id="loginPassword" class="modal-input" placeholder="Password" required>
+            <button class="modal-btn" onclick="handleLogin()">Sign In</button>
+            <div class="modal-switch">
+                Don't have an account? <a onclick="showSignup()">Create Account</a>
+            </div>
+        </div>
+        <div id="signupForm" style="display: none;">
+            <input type="text" id="signupName" class="modal-input" placeholder="Full Name" required>
+            <input type="email" id="signupEmail" class="modal-input" placeholder="Email Address" required>
+            <input type="password" id="signupPassword" class="modal-input" placeholder="Password (min 6 characters)" required>
+            <input type="tel" id="signupPhone" class="modal-input" placeholder="Phone Number">
+            <button class="modal-btn" onclick="handleSignup()">Create Account</button>
+            <div class="modal-switch">
+                Already have an account? <a onclick="showLogin()">Sign In</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const API_URL = 'http://localhost:5000/api';
+    let authToken = localStorage.getItem('token');
+    let currentUser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+    let selectedCity = localStorage.getItem('selectedCity') || '';
+
+    function showToast(message, isError = false) {
+        const existing = document.querySelector('.toast-message');
+        if (existing) existing.remove();
+        const toast = document.createElement('div');
+        toast.className = 'toast-message';
+        toast.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i><span>${message}</span>`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 4000);
+    }
+
+    function updateNavbar() {
+        const navButtons = document.getElementById('navButtons');
+        if (currentUser && authToken) {
+            let cityHtml = '';
+            if (selectedCity) {
+                cityHtml = `<span class="city-badge"><i class="fas fa-map-marker-alt"></i> ${selectedCity}</span>`;
+            }
+            navButtons.innerHTML = `
+                <span class="user-greeting"><i class="fas fa-user-circle"></i> ${currentUser.name.split(' ')[0]}</span>
+                ${cityHtml}
+                <a href="#" class="btn-outline" onclick="changeCity(); return false;"><i class="fas fa-map-marker-alt"></i> Change City</a>
+                <a href="#" class="btn-outline" onclick="logout(); return false;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="register-business.html" class="btn-primary"><i class="fas fa-plus-circle"></i> List Business</a>
+            `;
+        } else {
+            navButtons.innerHTML = `
+                <a href="#" class="btn-outline" onclick="openModal(); return false;"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+                <a href="register-business.html" class="btn-primary"><i class="fas fa-plus-circle"></i> List Business</a>
+            `;
+        }
+    }
+
+    function changeCity() { window.location.href = `index.html?city=${selectedCity}`; }
+
+    // Contact form submission
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const category = document.getElementById('contactCategory').value;
+            const message = document.getElementById('contactMessage').value;
+            
+            if (name && email && message) {
+                showToast(`Thank you ${name}! Your message has been sent.`);
+                this.reset();
+            } else {
+                showToast('Please fill in all required fields.', true);
+            }
+        });
+    }
+
+    function openModal() { document.getElementById('authModal').style.display = 'flex'; }
+    function closeModal() { document.getElementById('authModal').style.display = 'none'; showLogin(); }
+    function showSignup() {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('signupForm').style.display = 'block';
+        document.getElementById('modalTitle').innerText = 'Create Account';
+    }
+    function showLogin() {
+        document.getElementById('signupForm').style.display = 'none';
+        document.getElementById('loginForm').style.display = 'block';
+        document.getElementById('modalTitle').innerText = 'Sign In';
+    }
+    
+    async function handleLogin() {
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+        try {
+            const response = await fetch(`${API_URL}/auth/login`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            const result = await response.json();
+            if (result.success) {
+                authToken = result.token;
+                currentUser = result.user;
+                localStorage.setItem('token', authToken);
+                localStorage.setItem('user', JSON.stringify(currentUser));
+                updateNavbar();
+                closeModal();
+                showToast(`Welcome back ${currentUser.name}!`);
+                window.location.href = `index.html?city=${selectedCity}`;
+            } else {
+                showToast(result.message, true);
+            }
+        } catch (error) { showToast('Login failed: ' + error.message, true); }
+    }
+    
+    async function handleSignup() {
+        const name = document.getElementById('signupName').value;
+        const email = document.getElementById('signupEmail').value;
+        const password = document.getElementById('signupPassword').value;
+        const phone = document.getElementById('signupPhone').value;
+        if (password.length < 6) { showToast('Password must be at least 6 characters', true); return; }
+        try {
+            const response = await fetch(`${API_URL}/auth/register`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password, phone })
+            });
+            const result = await response.json();
+            if (result.success) {
+                authToken = result.token;
+                currentUser = result.user;
+                localStorage.setItem('token', authToken);
+                localStorage.setItem('user', JSON.stringify(currentUser));
+                updateNavbar();
+                closeModal();
+                showToast(`Welcome ${name}! Account created successfully.`);
+                window.location.href = `index.html?city=${selectedCity}`;
+            } else {
+                showToast(result.message, true);
+            }
+        } catch (error) { showToast('Signup failed: ' + error.message, true); }
+    }
+    
+    function logout() {
+        authToken = null;
+        currentUser = null;
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        updateNavbar();
+        showToast('Logged out successfully');
+        window.location.href = 'index.html';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        updateNavbar();
+    });
+</script>
+
+</body>
+</html>
